@@ -1,11 +1,25 @@
 package vision.kodai.xemime
 
 import java.io.File
+import kotlin.reflect.KProperty
 import kotlin.system.exitProcess
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
 import vision.kodai.xemime.ast.Location
+
+object Delegate {
+    var count = -1
+
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): Int {
+        count++
+        return count
+    }
+
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Int) {
+        count = value
+    }
+}
 
 fun foo(): Flow<Int> = flow {
     repeat(10) {
@@ -23,11 +37,15 @@ fun main(args: Array<String>) {
     val src = File(args[0]).readText(Charsets.UTF_8)
     println(src)
 
-    val result = Result.success(10)
-    println(result.map { it * 2 }.getOrDefault(0))
+    var property by Delegate
+    println("(1) $property")
+    println("(2) $property")
+    property = 100
+    println("(3) $property")
 
-    val loc = Location(18, 24)
-    println(loc)
+
+    val result = Result.success(10)
+    println("Result: ${result.map { it * 2 }.getOrDefault(0)}")
 
     println("Start")
 
