@@ -1,13 +1,22 @@
 package vision.kodai.xemime
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+
+fun foo(): Flow<Int> = flow {
+    repeat(10) {
+        delay(500)
+        emit(it)
+    }
+}
 
 fun main(args: Array<String>) {
     println("Start")
 
     runBlocking {
-        delay(1000)
-        println("Hello!")
+        foo().collect {
+            println(it)
+        }
     }
 
     println("End")
