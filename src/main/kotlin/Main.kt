@@ -11,6 +11,9 @@ fun foo(): Flow<Int> = flow {
 }
 
 fun main(args: Array<String>) {
+    val result = Result.success(10)
+    println(result.map { it * 2 }.getOrDefault(0))
+
     println("Start")
 
     runBlocking {
