@@ -1,0 +1,15 @@
+let fizzBuzz =
+    fun x ->
+        if x % 15 = 0
+            then "FizzBuzz"
+            else
+                (if x % 3 = 0
+                    then "Fizz"
+                    else
+                        (if x % 5 = 0
+                            then "Buzz"
+                            else string(x)))
+
+List.iter
+    (fun n -> printfn "%d" (fizzBuzz n))
+    [0..10]
