@@ -1,6 +1,7 @@
 plugins {
-    kotlin("jvm") version "1.3.72"
     application
+    kotlin("jvm") version "1.3.72"
+    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
 }
 
 group = "vision.kodai"
@@ -17,4 +18,8 @@ dependencies {
 
 application {
     mainClassName = "vision.kodai.xemime.MainKt"
+}
+
+ktlint {
+    verbose.set(true)
 }
