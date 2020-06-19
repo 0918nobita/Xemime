@@ -2,7 +2,6 @@ package vision.kodai.xemime
 
 import java.io.File
 import kotlin.system.exitProcess
-
 import vision.kodai.xemime.lexer.TokenReader
 
 fun main(args: Array<String>) {

@@ -3,7 +3,6 @@ package vision.kodai.xemime.lexer
 import java.io.Closeable
 import java.io.File
 import java.io.RandomAccessFile
-
 import vision.kodai.xemime.ast.Location
 import vision.kodai.xemime.ast.moveLight
 import vision.kodai.xemime.ast.newline
