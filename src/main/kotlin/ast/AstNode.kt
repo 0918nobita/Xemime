@@ -1,3 +1,8 @@
 package vision.kodai.xemime.ast
 
-open class AstNode(val location: Location)
+import vision.kodai.xemime.entity.Entity
+
+interface AstNode {
+    val location: Location
+    fun run(): Entity
+}

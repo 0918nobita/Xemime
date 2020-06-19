@@ -29,5 +29,5 @@ fun main(args: Array<String>) {
     }
 
     val ast = IntConst(bof, 123)
-    println(ast)
+    println(ast.run())
 }
