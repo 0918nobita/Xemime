@@ -14,14 +14,10 @@ import vision.kodai.xemime.ast.newline
 class CharReader(file: File) : Closeable {
     private val randomAccessFile = RandomAccessFile(file, "r")
 
-    /** 行ごとの文字数 */
-    private val lineLengthMap: ArrayList<Int> = ArrayList()
+    private val lineLengthStore = LineLengthStore()
 
-    // TODO: Simplify representation of current location
-    /** 現在位置 (改行も1文字として数える) */
     private var position: Long = 0
 
-    /** 現在位置 (行数 + 左から数えた文字数) */
     var currentLoc = Location(0, 0)
         private set
 
@@ -29,7 +25,6 @@ class CharReader(file: File) : Closeable {
         randomAccessFile.close()
     }
 
-    /** 次の1文字を読む */
     fun read(): Option<Char> {
         val charCode = randomAccessFile.read()
         if (charCode == -1) return None
@@ -37,8 +32,8 @@ class CharReader(file: File) : Closeable {
         position++
         currentLoc =
             if (c == '\n') {
-                if (currentLoc.row > lineLengthMap.size - 1)
-                    lineLengthMap.add(currentLoc.col)
+                if (currentLoc.row > lineLengthStore.maxRowIndex())
+                    lineLengthStore.appendRow(currentLoc.col)
                 currentLoc.newline()
             } else {
                 currentLoc.moveRight()
@@ -46,12 +41,11 @@ class CharReader(file: File) : Closeable {
         return Some(c)
     }
 
-    /** 1文字戻る */
     fun unread() {
         currentLoc =
             if (currentLoc.col == 0) {
                 val newRow = currentLoc.row - 1
-                Location(newRow, lineLengthMap[newRow] - 1)
+                Location(newRow, lineLengthStore.getLength(newRow) - 1)
             } else {
                 Location(currentLoc.row, currentLoc.col - 1)
             }
