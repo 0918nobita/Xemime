@@ -23,7 +23,7 @@ fun main(args: Array<String>) {
         it.read().fold(ifEmpty = {
             println("empty")
         }, ifSome = { c ->
-            val msg = if (c == '\n') { "[br]" } else { c.toString() }
+            val msg = if (c == '\n') "[br]" else c.toString()
             println("char: $msg, loc: ${it.currentLoc}")
         })
     }
