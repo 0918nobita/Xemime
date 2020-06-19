@@ -1,6 +1,12 @@
 package vision.kodai.xemime.ast
 
-data class Location(val row: Int, val col: Int)
+class Location(val row: Int, val col: Int) {
+    override fun toString(): String {
+        return "${row + 1}:${col + 1}"
+    }
+}
+
+val bof = Location(0, 0)
 
 fun Location.newline() =
     Location(this.row + 1, 0)

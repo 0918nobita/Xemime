@@ -2,6 +2,8 @@ package vision.kodai.xemime
 
 import java.io.File
 import kotlin.system.exitProcess
+import vision.kodai.xemime.ast.IntConst
+import vision.kodai.xemime.ast.bof
 import vision.kodai.xemime.lexer.CharReader
 
 fun main(args: Array<String>) {
@@ -25,4 +27,7 @@ fun main(args: Array<String>) {
             println("char: $msg, loc: ${it.currentLoc}")
         })
     }
+
+    val ast = IntConst(bof, 123)
+    println(ast)
 }
