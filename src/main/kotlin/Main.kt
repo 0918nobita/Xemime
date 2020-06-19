@@ -2,7 +2,7 @@ package vision.kodai.xemime
 
 import java.io.File
 import kotlin.system.exitProcess
-import vision.kodai.xemime.lexer.TokenReader
+import vision.kodai.xemime.lexer.CharReader
 
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
@@ -16,15 +16,21 @@ fun main(args: Array<String>) {
         exitProcess(1)
     }
 
-    val reader = TokenReader(file)
+    val reader = CharReader(file)
     reader.use {
-        println(it.currentLoc)
-        for (i in 0..34) {
+        fun readNextChar() {
             it.read().fold(ifEmpty = {
                 println("empty")
             }, ifSome = { c ->
                 println("char: $c, loc: ${it.currentLoc}")
             })
         }
+
+        readNextChar()
+        readNextChar()
+        readNextChar()
+        it.unread()
+        it.unread()
+        readNextChar()
     }
 }
