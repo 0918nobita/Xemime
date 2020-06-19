@@ -1,10 +1,13 @@
 package vision.kodai.xemime.lexer
 
+import arrow.core.None
+import arrow.core.Option
+import arrow.core.Some
 import java.io.Closeable
 import java.io.File
 import java.io.RandomAccessFile
 import vision.kodai.xemime.ast.Location
-import vision.kodai.xemime.ast.moveLight
+import vision.kodai.xemime.ast.moveRight
 import vision.kodai.xemime.ast.newline
 
 class TokenReader(file: File) : Closeable {
@@ -17,14 +20,13 @@ class TokenReader(file: File) : Closeable {
         randomAccessFile.close()
     }
 
-    // TODO: Use option type
-    fun read(): Char? {
+    fun read(): Option<Char> {
         val charCode = randomAccessFile.read()
-        if (charCode == -1) return null
+        if (charCode == -1) return None
         val c = charCode.toChar()
         currentLoc =
-            if (c == '\n') { currentLoc.newline() } else { currentLoc.moveLight() }
-        return c
+            if (c == '\n') { currentLoc.newline() } else { currentLoc.moveRight() }
+        return Some(c)
     }
 
     fun unread() {

@@ -19,8 +19,12 @@ fun main(args: Array<String>) {
     val reader = TokenReader(file)
     reader.use {
         println(it.currentLoc)
-        for (i in 0..4) {
-            println("char: ${it.read()}, loc: ${it.currentLoc}")
+        for (i in 0..34) {
+            it.read().fold(ifEmpty = {
+                println("empty")
+            }, ifSome = { c ->
+                println("char: $c, loc: ${it.currentLoc}")
+            })
         }
     }
 }
