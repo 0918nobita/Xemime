@@ -23,6 +23,7 @@ fun main(args: Array<String>) {
         },
         onFailure = {
             println("ソースファイルの読み込みに失敗しました")
+            exitProcess(1)
         }
     )
 }
