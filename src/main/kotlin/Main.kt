@@ -18,19 +18,11 @@ fun main(args: Array<String>) {
 
     val reader = CharReader(file)
     reader.use {
-        fun readNextChar() {
-            it.read().fold(ifEmpty = {
-                println("empty")
-            }, ifSome = { c ->
-                println("char: $c, loc: ${it.currentLoc}")
-            })
-        }
-
-        readNextChar()
-        readNextChar()
-        readNextChar()
-        it.unread()
-        it.unread()
-        readNextChar()
+        it.read().fold(ifEmpty = {
+            println("empty")
+        }, ifSome = { c ->
+            val msg = if (c == '\n') { "[br]" } else { c.toString() }
+            println("char: $msg, loc: ${it.currentLoc}")
+        })
     }
 }

@@ -19,7 +19,7 @@ class CharReader(file: File) : Closeable {
 
     // TODO: Simplify representation of current location
     /** 現在位置 (改行も1文字として数える) */
-    private var position: Long = -1
+    private var position: Long = 0
 
     /** 現在位置 (行数 + 左から数えた文字数) */
     var currentLoc = Location(0, 0)
@@ -37,7 +37,8 @@ class CharReader(file: File) : Closeable {
         position++
         currentLoc =
             if (c == '\n') {
-                if (currentLoc.row > lineLengthMap.size - 1) lineLengthMap.add(currentLoc.col)
+                if (currentLoc.row > lineLengthMap.size - 1)
+                    lineLengthMap.add(currentLoc.col)
                 currentLoc.newline()
             } else {
                 currentLoc.moveRight()
