@@ -1,5 +1,7 @@
 package vision.kodai.xemime
 
+import arrow.core.None
+import arrow.core.getOrElse
 import java.io.File
 import kotlin.system.exitProcess
 import vision.kodai.xemime.ast.AstNode
@@ -30,7 +32,7 @@ fun main(args: Array<String>) {
         })
     }
 
-    val ast: AstNode<Entity> = IntConst(bof("internal"), 123)
+    val ast: AstNode<Entity> = IntConst(bof(None), 123)
     val value = ast.run() // value: Entity
-    println(value)
+    println("$value, ${value.location.getOrElse { "empty" }}")
 }
