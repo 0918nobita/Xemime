@@ -1,6 +1,10 @@
 package vision.kodai.xemime
 
 import arrow.core.None
+import arrow.core.Tuple2
+import arrow.mtl.State
+import arrow.mtl.flatMap
+import arrow.mtl.run
 import java.io.File
 import javafx.application.Application
 import kotlin.system.exitProcess
@@ -10,6 +14,10 @@ import vision.kodai.xemime.ast.bof
 import vision.kodai.xemime.lexer.CharReader
 
 fun main(args: Array<String>) {
+    val state = State<Int, Int> { Tuple2(it + 1, it * 2) }
+    val state2 = state.flatMap { state }
+    println(state2.run(1)) // (3, 4)
+
     if (args.isEmpty()) {
         println("ファイルパスを指定してください")
         exitProcess(1)
