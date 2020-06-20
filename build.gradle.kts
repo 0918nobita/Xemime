@@ -15,6 +15,7 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7")
     implementation("io.arrow-kt:arrow-core:0.10.5")
+    implementation("io.arrow-kt:arrow-mtl:0.10.5")
     implementation("io.arrow-kt:arrow-syntax:0.10.5")
 }
 
