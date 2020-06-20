@@ -1,6 +1,7 @@
 plugins {
     application
     kotlin("jvm") version "1.3.72"
+    id("org.openjfx.javafxplugin") version "0.0.8"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
 }
 
@@ -21,6 +22,11 @@ dependencies {
 
 application {
     mainClassName = "vision.kodai.xemime.MainKt"
+}
+
+javafx {
+    version = "14"
+    modules = listOf("javafx.controls")
 }
 
 ktlint {
