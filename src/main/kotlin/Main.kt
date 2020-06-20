@@ -16,7 +16,7 @@ fun main(args: Array<String>) {
 
     val file = File(args[0])
 
-    val uncheckedFile = SourceFile.create(file) // sourceFile: SourceFile<SrcState.Unchecked>
+    val uncheckedFile = SourceFile.create(file)
 
     uncheckedFile.check().fold(
         ifLeft = {
