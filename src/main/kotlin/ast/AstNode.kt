@@ -1,6 +1,9 @@
 package vision.kodai.xemime.ast
 
-interface AstNode<out E> {
+import arrow.core.Either
+import vision.kodai.xemime.entity.Entity
+
+interface AstNode<out E : Entity> {
     val location: Location
-    fun run(): E
+    fun run(): Either<String, E>
 }

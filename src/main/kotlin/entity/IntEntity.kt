@@ -10,9 +10,9 @@ import vision.kodai.xemime.ast.Location
 class IntEntity(override val location: Option<Location>, private val value: Int) : Entity {
     override fun toString() = "IntEntity[$value]"
 
-    fun add(rhs: Entity): Either<String, IntEntity> =
+    override fun add(rhs: Entity): Either<String, IntEntity> =
         if (rhs !is IntEntity) {
-            Left("TypeError")
+            Left("type error")
         } else {
             Right(IntEntity(None, this.value + rhs.value))
         }

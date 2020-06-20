@@ -1,13 +1,11 @@
 package vision.kodai.xemime
 
 import arrow.core.None
-import arrow.core.getOrElse
 import java.io.File
 import kotlin.system.exitProcess
-import vision.kodai.xemime.ast.AstNode
+import vision.kodai.xemime.ast.AddExpr
 import vision.kodai.xemime.ast.IntConst
 import vision.kodai.xemime.ast.bof
-import vision.kodai.xemime.entity.Entity
 import vision.kodai.xemime.lexer.CharReader
 
 fun main(args: Array<String>) {
@@ -38,7 +36,15 @@ fun main(args: Array<String>) {
         }
     )
 
-    val ast: AstNode<Entity> = IntConst(bof(None), 123)
-    val value = ast.run() // value: Entity
-    println("$value, ${value.location.getOrElse { "empty" }}")
+    val lhs = IntConst(bof(None), 3)
+    val rhs = IntConst(bof(None), 4)
+    val ast = AddExpr(bof(None), lhs, rhs)
+    ast.run().fold(
+        ifLeft = {
+            println("Error: $it")
+        },
+        ifRight = {
+            println("Result: $it")
+        }
+    )
 }

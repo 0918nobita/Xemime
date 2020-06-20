@@ -6,7 +6,7 @@ import arrow.core.getOrElse
 
 data class Location(val filename: Option<String> = None, val row: Int, val col: Int) {
     override fun toString() =
-        "${filename.getOrElse { "unknown" }}:${row + 1}:${col + 1}"
+        "${filename.getOrElse { "unknown" }}:${row + 1}:$col"
 }
 
 fun bof(filename: Option<String>) =
