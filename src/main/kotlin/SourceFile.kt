@@ -6,12 +6,12 @@ import arrow.core.Right
 import java.io.File
 
 sealed class SrcState {
-    object Unchecked: SrcState()
-    object Exist: SrcState()
-    object NotFound: SrcState()
+    object Unchecked : SrcState()
+    object Exist : SrcState()
+    object NotFound : SrcState()
 }
 
-class SourceFile<S: SrcState> private constructor(val file: File) {
+class SourceFile<S : SrcState> private constructor(val file: File) {
     companion object {
         fun create(uncheckedFile: File): SourceFile<SrcState.Unchecked> =
             SourceFile(uncheckedFile)
