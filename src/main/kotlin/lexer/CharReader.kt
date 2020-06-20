@@ -4,21 +4,22 @@ import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
 import java.io.Closeable
-import java.io.File
 import java.io.RandomAccessFile
+import vision.kodai.xemime.SourceFile
+import vision.kodai.xemime.SrcState
 import vision.kodai.xemime.ast.Location
 import vision.kodai.xemime.ast.moveRight
 import vision.kodai.xemime.ast.newline
 
 /** テキストファイルの内容を1文字ずつ読む */
-class CharReader(file: File) : Closeable {
-    private val randomAccessFile = RandomAccessFile(file, "r")
+class CharReader(existingSrc: SourceFile<SrcState.Exist>) : Closeable {
+    private val randomAccessFile = RandomAccessFile(existingSrc.file, "r")
 
     private val lineLengthStore = LineLengthStore()
 
     private var position: Long = 0
 
-    var currentLoc = Location(Some(file.absolutePath), 0, 0)
+    var currentLoc = Location(Some(existingSrc.file.absolutePath), 0, 0)
         private set
 
     override fun close() {

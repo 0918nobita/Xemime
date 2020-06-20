@@ -1,6 +1,5 @@
 package vision.kodai.xemime
 
-import arrow.core.Either
 import arrow.core.None
 import arrow.core.getOrElse
 import java.io.File
@@ -23,27 +22,21 @@ fun main(args: Array<String>) {
 
     uncheckedFile.check().fold(
         ifLeft = {
-            println("$it was not found")
+            println("指定されたソースファイルが存在しません: $it")
+            exitProcess(1)
         },
-        ifRight = {
-            println("$it exists")
+        ifRight = { existingFile ->
+            val reader = CharReader(existingFile)
+            reader.use {
+                it.read().fold(ifEmpty = {
+                    println("empty")
+                }, ifSome = { c ->
+                    val msg = if (c == '\n') "[br]" else c.toString()
+                    println("char: $msg, loc: ${it.currentLoc}")
+                })
+            }
         }
     )
-
-    if (!file.exists()) {
-        println("指定されたソースファイルが存在しません")
-        exitProcess(1)
-    }
-
-    val reader = CharReader(file)
-    reader.use {
-        it.read().fold(ifEmpty = {
-            println("empty")
-        }, ifSome = { c ->
-            val msg = if (c == '\n') "[br]" else c.toString()
-            println("char: $msg, loc: ${it.currentLoc}")
-        })
-    }
 
     val ast: AstNode<Entity> = IntConst(bof(None), 123)
     val value = ast.run() // value: Entity
