@@ -18,7 +18,7 @@ class CharReader(file: File) : Closeable {
 
     private var position: Long = 0
 
-    var currentLoc = Location(0, 0)
+    var currentLoc = Location(Some(file.absolutePath), 0, 0)
         private set
 
     override fun close() {
@@ -45,9 +45,9 @@ class CharReader(file: File) : Closeable {
         currentLoc =
             if (currentLoc.col == 0) {
                 val newRow = currentLoc.row - 1
-                Location(newRow, lineLengthStore.getLength(newRow) - 1)
+                currentLoc.copy(row = newRow, col = lineLengthStore.getLength(newRow) - 1)
             } else {
-                Location(currentLoc.row, currentLoc.col - 1)
+                currentLoc.copy(col = currentLoc.col - 1)
             }
 
         position--

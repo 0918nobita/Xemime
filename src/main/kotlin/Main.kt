@@ -30,7 +30,7 @@ fun main(args: Array<String>) {
         })
     }
 
-    val ast: AstNode<Entity> = IntConst(bof, 123)
+    val ast: AstNode<Entity> = IntConst(bof("internal"), 123)
     val value = ast.run() // value: Entity
     println(value)
 }

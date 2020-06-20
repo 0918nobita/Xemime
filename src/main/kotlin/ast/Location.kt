@@ -1,15 +1,20 @@
 package vision.kodai.xemime.ast
 
-class Location(val row: Int, val col: Int) {
+import arrow.core.None
+import arrow.core.Option
+import arrow.core.Some
+
+data class Location(val filename: Option<String> = None, val row: Int, val col: Int) {
     override fun toString(): String {
-        return "${row + 1}:${col + 1}"
+        return "$filename:${row + 1}:${col + 1}"
     }
 }
 
-val bof = Location(0, 0)
+fun bof(filename: String) =
+    Location(Some(filename), 0, 0)
 
 fun Location.newline() =
-    Location(this.row + 1, 0)
+    this.copy(row = this.row + 1, col = 0)
 
 fun Location.moveRight(offset: Int = 1) =
-    Location(this.row, this.col + offset)
+    this.copy(col = this.col + offset)
