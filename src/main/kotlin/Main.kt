@@ -1,5 +1,6 @@
 package vision.kodai.xemime
 
+import arrow.core.Either
 import arrow.core.None
 import arrow.core.getOrElse
 import java.io.File
@@ -17,6 +18,18 @@ fun main(args: Array<String>) {
     }
 
     val file = File(args[0])
+
+    val uncheckedFile = SourceFile.create(file) // sourceFile: SourceFile<SrcState.Unchecked>
+
+    uncheckedFile.check().fold(
+        ifLeft = {
+            println("$it was not found")
+        },
+        ifRight = {
+            println("$it exists")
+        }
+    )
+
     if (!file.exists()) {
         println("指定されたソースファイルが存在しません")
         exitProcess(1)
