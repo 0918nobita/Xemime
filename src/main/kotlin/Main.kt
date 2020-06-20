@@ -2,6 +2,7 @@ package vision.kodai.xemime
 
 import arrow.core.None
 import java.io.File
+import javafx.application.Application
 import kotlin.system.exitProcess
 import vision.kodai.xemime.ast.AddExpr
 import vision.kodai.xemime.ast.IntConst
@@ -47,4 +48,6 @@ fun main(args: Array<String>) {
             println("Result: $it")
         }
     )
+
+    Application.launch(Window::class.java, *args)
 }
