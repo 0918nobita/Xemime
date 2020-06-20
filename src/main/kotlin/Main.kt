@@ -2,8 +2,10 @@ package vision.kodai.xemime
 
 import java.io.File
 import kotlin.system.exitProcess
+import vision.kodai.xemime.ast.AstNode
 import vision.kodai.xemime.ast.IntConst
 import vision.kodai.xemime.ast.bof
+import vision.kodai.xemime.entity.Entity
 import vision.kodai.xemime.lexer.CharReader
 
 fun main(args: Array<String>) {
@@ -28,6 +30,7 @@ fun main(args: Array<String>) {
         })
     }
 
-    val ast = IntConst(bof, 123)
-    println(ast.run())
+    val ast: AstNode<Entity> = IntConst(bof, 123)
+    val value = ast.run() // value: Entity
+    println(value)
 }

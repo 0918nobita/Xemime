@@ -3,7 +3,7 @@ package vision.kodai.xemime.ast
 import arrow.core.Some
 import vision.kodai.xemime.entity.IntEntity
 
-class IntConst(override val location: Location, private val value: Int) : AstNode {
+class IntConst(override val location: Location, private val value: Int) : AstNode<IntEntity> {
     override fun run() = IntEntity(Some(location), value)
 
     override fun toString(): String {
